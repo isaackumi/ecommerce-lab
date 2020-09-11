@@ -61,9 +61,22 @@ session_start();
 								</ul>
 							</div>
 							<div class="top_bar_user">
-								<div class="user_icon"><img src="images/user.svg" alt=""></div>
-								<div><a href="#">Register</a></div>
-								<div><a href="#">Sign in</a></div>
+                                <?php
+                                if(!empty($_SESSION['user_id'])){
+
+                                   echo " <div class=\"user_icon\"><img src=\"images/user.svg\" alt=\"\"></div>";
+                                    echo"<div><a href='../Login/login.php'>Welcome  " .$_SESSION['customer_name']."</a> </div>";
+
+                                    echo "<div class='btn-cta'><a href='./Login/logout.php'><span>Logout  </span></a></div>";
+                                }else {
+                                    echo " <div class=\"user_icon\"><img src=\"images/user.svg\" alt=\"\"></div>";
+                                    echo "<div><a href='./Login/register.php'>Register</a></div> ";
+                                    echo "<div class='btn-cta'><a href='./Login/login.php'><span>Login</span></a></div>";
+                                }
+                                ?>
+
+
+
 							</div>
 						</div>
 					</div>

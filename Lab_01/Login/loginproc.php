@@ -57,11 +57,11 @@ if (isset($_POST['login_user'])){
 		//get password from database
 		$hash = $check_login[0]['customer_pass'];
 		
-		if (password_verify($lpass, $hash)) 
+		if (password_verify($customer_pass, $hash))
 		{
 				//create session for id, role and name
 				$_SESSION["user_id"] = $check_login[0]['customer_id'];
-				$_SESSION["user_name"] = $check_login[0]['customer_fname'];
+				$_SESSION["customer_name"] = $check_login[0]['customer_name'];
 
 				//redirection to home page
 //				header('Location: ../view/shop.php');
