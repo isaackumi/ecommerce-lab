@@ -1,5 +1,6 @@
 <?php
-//for header redirection
+
+//header redirection
 ob_start();
 
 //start session
@@ -8,10 +9,10 @@ session_start();
 //get the name of the current page
 $current_file = $_SERVER['SCRIPT_NAME'];
 
-//funtion to check for login
+//function to check for login
 function check_login(){
-    //check if login session userid  exit
-    if (!isset($_SESSION['learner_id']))
+    //check if login session user id  exist
+    if (!isset($_SESSION['user_id']))
     {
         //redirect to login page
         header('Location: ../register/login.php');
@@ -19,6 +20,7 @@ function check_login(){
 }
 
 //function to get customer id
+
 function get_customer_id(){
     //check if login session userid exit
     if (isset($_SESSION['user_id']))
@@ -30,6 +32,7 @@ function get_customer_id(){
 
 //function to check for permission
 //to know if user is allowed to see that page or execute a command
+
 function check_permission(){
     //get session role
     if (isset($_SESSION['user_role'])) {

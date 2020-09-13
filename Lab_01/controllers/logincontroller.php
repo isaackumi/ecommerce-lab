@@ -36,6 +36,12 @@ function register_user($a, $b, $c,$d,$e,$f,$g){
      return $create_user = $create_user ?: false;
 
 
+}
+
+function emailExist($email){
+    $new_object = new login_class();
+    $check = $new_object->emailExist($email);
+    return $check = $check ?: false;
 
 }
 

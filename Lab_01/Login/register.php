@@ -1,3 +1,8 @@
+
+<?php
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +52,18 @@
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Email is required">
 						<span class="label-input100">Email</span>
 						<input class="input100" type="email" name="customer_email" placeholder="Email" required>
-						<span class="focus-input100"></span>
+
+
+                        <?php if (isset($_SESSION['email-exist'])): ?>
+
+                                <span class="focus-input100" style="color: firebrick;">
+                                    <?php
+                                    echo $_SESSION['email-exist'];
+                                    unset($_SESSION['email-exist']);
+                                    ?>
+                                </span>
+
+                        <?php endif ?>
 					</div>
                     <div class="wrap-input100 validate-input m-b-26" data-validate="Country is required">
                         <span class="label-input100">Country</span>

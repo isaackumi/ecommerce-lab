@@ -23,6 +23,11 @@ if (isset($_POST['register_user'])){
 
 
 
+//    $check_email = emailExist($customer_email);
+//    if ($check_email){
+//        header('Location: register.php');
+//        $_SESSION['email-exist'] = 'Email Already exist!!';
+//    }
 
 
 	$hash = password_hash($customer_pass, PASSWORD_DEFAULT);
@@ -31,12 +36,13 @@ if (isset($_POST['register_user'])){
 	if ($register) {
 
 		header('Location: login.php');
-//        $_SESSION['register-success'] = 'Account created successfully';
+        $_SESSION['register-success'] = 'Account created successfully';
 	}else{
 				//echo failure
 //		echo "error";
         header('Location: register.php');
-//        $_SESSION['register-error'] = 'Error creating account';
+        $_SESSION['register-error'] = 'Error creating account';
+
 
 
 
