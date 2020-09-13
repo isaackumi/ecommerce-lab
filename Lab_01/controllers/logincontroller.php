@@ -28,17 +28,15 @@ function login_admin($email){
 }
 
 function register_user($a, $b, $c,$d,$e,$f,$g){
+//    create an instance of the login_class
     $new_object = new login_class();
-    //run the add product method
-    $insertlearner = $new_object->register_user($a, $b, $c,$d,$e,$f,$g);
+    //run the register user method
+    $create_user = $new_object->register_user($a, $b, $c,$d,$e,$f,$g);
     //check if method worked
-    if ($insertlearner) {
-        //return query result (boolean)
-        return $insertlearner;
-    }else{
+     return $create_user = $create_user ?: false;
 
-        return false;
-    }
+
+
 }
 
 ?>

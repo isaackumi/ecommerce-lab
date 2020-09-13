@@ -23,20 +23,20 @@ if (isset($_POST['register_user'])){
 
 
 
-	print_r($_POST);
+
 
 	$hash = password_hash($customer_pass, PASSWORD_DEFAULT);
 //	check if email exist
 	$register = register_user($customer_name, $customer_email, $hash,$customer_country,$customer_city,$customer_contact,$user_role);
 	if ($register) {
-			//echo success
+
 		header('Location: login.php');
-        $_SESSION['register-success'] = 'Account created successfully';
+//        $_SESSION['register-success'] = 'Account created successfully';
 	}else{
 				//echo failure
 //		echo "error";
         header('Location: register.php');
-        $_SESSION['register-error'] = 'Error creating account';
+//        $_SESSION['register-error'] = 'Error creating account';
 
 
 

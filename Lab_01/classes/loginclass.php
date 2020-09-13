@@ -12,6 +12,14 @@ class login_class extends db_connection
      *method to verify login
      *takes email, password
      */
+    public function emailExist($email)
+    {
+        $sql = " SELECT * FROM customer WHERE `email` = '$email'";
+
+        return $this->db_query($sql);
+
+    }
+
 
 
     public function register_user($a, $b, $c,$d,$e,$f,$g){
