@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V15</title>
+	<title>Admin | Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -34,22 +34,22 @@
 			<div class="wrap-login100">
 				<div class="login100-form-title" style="background-image: url(images/bg-01.jpg);">
 					<span class="login100-form-title-1">
-						Sign In Admin
+						 Admin Sign In
 
 					</span>
 					
 				</div>
 
-				<form  action="loginproc.php" method="post" class="login100-form validate-form">
+				<form  action="loginprocess.php" method="post" class="login100-form validate-form">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Email</span>
-						<input class="input100" type="text" name="email" placeholder="Enter username" required>
+						<input class="input100" type="text" name="admin_email" placeholder="Enter username" required>
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="Enter password" required>
+						<input class="input100" type="password" name="admin_pass" placeholder="Enter password" required>
 						<span class="focus-input100"></span>
 					</div>
 
@@ -60,8 +60,9 @@
 								Remember me
 							</label>
 						</div>
-						<div><a href="logout.php" class=txt3>Logout</a></div>
-						
+<!--						<div><a href="logout.php" class=txt3>Logout</a></div>-->
+						<div><a href="admin_register.php" class=txt3>Admin Register</a></div>
+
 					</div>
 
 					<div class="container-login100-form-btn">

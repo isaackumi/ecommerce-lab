@@ -1,29 +1,103 @@
 <?php
-//database connection is done in cartclass (this is done to avoid duplicate)
+
 require("../settings/db_class.php");
-/**
- *Product class to handle everything product related
- */
-/**
- *@author David Sampah
- */
+
 class product_class extends db_connection
 {
-    /**
-     *method to insert new product
-     *takes the title and price
-     */
-    public function add_new_product($a, $b, $c,$d, $e,$f,$g){
+
+
+//    ##########      BRANDS  ################################
+
+
+    function create_brand($brand){
+
+        $sql="INSERT into brands(`brand_name`) VALUES('$brand')";
+        return $this->db_query($sql);
+
+    }
+
+
+    function get_brands(){
+        $sql = 'SELECT * FROM brands';
+        return $this->db_query($sql);
+    }
+
+    function geOneBrand($id){
+        $sql = "SELECT * FROM brands WHERE `brand_id`= '$id'";
+        return $this->db_query($sql);
+    }
+
+    function delete_brand($id){
+        $sql = "DELETE FROM brands WHERE `brand_id`= '$id'";
+        return $this->db_query($sql);
+    }
+
+
+    function update_brand($brand,$id){
+        $sql = "UPDATE brands SET `brand_name` = '$brand' WHERE `brand_id`= '$id'";
+        return $this->db_query($sql);
+    }
+
+
+    //    ##########      BRANDS  - END   ################################
+
+
+
+//    ##########      CATEGORY  ################################
+    function add_product_category($category){
+
+        $sql="INSERT into categories(`cat_name`) VALUES('$category')";
+        return $this->db_query($sql);
+    }
+
+    function get_categories(){
+        $sql = 'SELECT * FROM categories';
+        return $this->db_query($sql);
+    }
+
+    function get_one_category($id){
+        $sql = "SELECT * FROM categories WHERE `cat_id`= '$id'";
+        return $this->db_query($sql);
+    }
+
+
+    function get_category_name($cat_id){
+        $sql = "SELECT cat_name FROM categories WHERE `cat_id` = '$cat_id'";
+        return $this->db_query($sql);
+    }
+
+    function delete_category($id){
+        $sql = "DELETE FROM categories WHERE `cat_id`= '$id'";
+        return $this->db_query($sql);
+    }
+
+
+    function update_category($cat,$id){
+        $sql = "UPDATE categories SET `cat_name` = '$cat' WHERE `cat_id`= '$id'";
+        return $this->db_query($sql);
+    }
+
+
+
+//    ##########      CATEGORY  - END   ################################
+
+
+    public function add_new_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image, $product_keywords){
 
         //Write the insert sql
-        $sql = "INSERT INTO products (`product_title`,`product_price`,`product_desc`, `category`,`img1`,`img2`,`img3`) VALUES('$a', '$b','$c', '$d','$e', '$f','$g')";
+        $sql = "INSERT INTO products(product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords) VALUES('$product_cat', '$product_brand', '$product_title', '$product_price', '$product_desc', '$product_image', '$product_keywords')";
         //execute the sql and return boolean
         return $this->db_query($sql);
     }
 
-    /**
-     *method to view all products
-     */
+    public function view_all_products(){
+        //a query to get all products
+        $sql = "SELECT * FROM products";
+
+        //execute the query and return boolean
+        return $this->db_query($sql);
+    }
+
     public function view_products($category){
         //a query to get all products
         $sql = "SELECT * FROM products where category='$category'";
@@ -31,6 +105,46 @@ class product_class extends db_connection
         //execute the query and return boolean
         return $this->db_query($sql);
     }
+
+
+
+
+//    ######################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     *method to insert new product
+     *takes the title and price
+     */
+
+
+    /**
+     *method to view all products
+     */
+
 
 
     public function recommended(){
@@ -41,37 +155,12 @@ class product_class extends db_connection
         return $this->db_query($sql);
     }
 
-    public function insert_image($a){
-
-        //Write the insert sql
-        $sql = "INSERT INTO images (`image`) VALUES('$a')";
-        //execute the sql and return boolean
-        return $this->db_query($sql);
-    }
-
-    public function view_all_images(){
-        //a query to get all products
-        $sql = "SELECT * FROM images";
-
-        //execute the query and return boolean
-        return $this->db_query($sql);
-    }
 
 
-    public function view_order_details($pid,$status){
-        //a query to get all products
-        $sql = "SELECT * FROM orders where customer_id='$pid' and order_status='$status'";
 
-        //execute the query and return boolean
-        return $this->db_query($sql);
-    }
-    public function view_all_products(){
-        //a query to get all products
-        $sql = "SELECT * FROM products";
 
-        //execute the query and return boolean
-        return $this->db_query($sql);
-    }
+
+
     /**
      *method to view one product base on id
      *takes product id
@@ -122,16 +211,7 @@ class product_class extends db_connection
 
 
 
-    ////
 
-    public function add_to_cart($a, $b){
-
-
-        $sql = "INSERT INTO cart (`product_id`,`customer_id`,`qty`) VALUES('$a', '$b', '1')";
-
-        //execute the sql and return boolean
-        return $this->db_query($sql);
-    }
 
 
     public function view_cart_item($a){

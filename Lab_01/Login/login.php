@@ -40,7 +40,7 @@
 					<a href="login_admin.php"> Admin Login </a>
 				</div>
 
-				<form  action="loginproc.php" method="post" class="login100-form validate-form">
+				<form  action="loginprocess.php" method="post" class="login100-form validate-form">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Email</span>
 						<input class="input100" type="text" name="customer_email" placeholder="Enter username" required>

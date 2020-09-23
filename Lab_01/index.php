@@ -1,8 +1,8 @@
 <?php
 session_start();
+ob_start();
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +24,14 @@ session_start();
 </head>
 
 <body>
+
+<!---->
+<?php
+//// Req
+//require("./controllers/customer_controller.php");
+//require("./controllers/logincontroller.php");
+//require("./controllers/productcontroller.php");
+//?>
 
 <div class="super_container">
 	

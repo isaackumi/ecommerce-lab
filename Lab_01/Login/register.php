@@ -43,7 +43,7 @@ session_start();
 					</span>
 				</div>
 
-				<form action="loginproc.php" method="post" class="login100-form validate-form">
+				<form action="registerprocess.php" method="post" class="login100-form validate-form">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100"> Full Name</span>
 						<input class="input100" type="text" name="customer_name" placeholder="Full Name" required>

@@ -17,6 +17,7 @@ function check_login(){
         //redirect to login page
         header('Location: ../register/login.php');
     }
+    return false;
 }
 
 //function to get customer id
@@ -40,6 +41,13 @@ function check_permission(){
         //return user role
         return $_SESSION['user_role'];
     }
+}
+
+function isAdmin(){
+    if (isset($_SESSION['admin_id'])){
+        return true;
+    }
+    return false;
 }
 
 //get user ip

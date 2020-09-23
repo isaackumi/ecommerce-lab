@@ -67,10 +67,10 @@ if (isset($_POST['login_user'])){
 		{
 				//create session for id, role and name
 				$_SESSION["user_id"] = $check_login[0]['customer_id'];
+				$_SESSION["user_role"] = $check_login[0]['user_role'];
 				$_SESSION["customer_name"] = $check_login[0]['customer_name'];
 
 				//redirection to home page
-//				header('Location: ../view/shop.php');
 				header('Location: ../index.php');
 
 				//to make sure the code below does not execute after redirection use exit

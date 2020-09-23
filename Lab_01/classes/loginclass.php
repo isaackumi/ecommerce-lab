@@ -14,7 +14,7 @@ class login_class extends db_connection
      */
     public function emailExist($email)
     {
-        $sql = " SELECT * FROM customer WHERE `email` = '$email'";
+        $sql = " SELECT  `email` FROM customer WHERE `customer_email` = '$email'";
 
         return $this->db_query($sql);
 
@@ -39,7 +39,7 @@ class login_class extends db_connection
 
     public function login_admin($a){
         //a query to get all login information base on email
-        $sql = "SELECT * FROM admin WHERE admin_email='$a'";
+        $sql = "SELECT * FROM customer WHERE customer_email='$a'";
         //execute the query and return boolean
         return $this->db_query($sql);
     }

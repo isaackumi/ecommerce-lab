@@ -1,49 +1,108 @@
 <?php
 //connection to the product class is done in the cart controller. to avoid duplicate
 require("../classes/productclass.php");
-//insert product function. takes title and price
-function add_product($a, $b, $c,$d, $e,$f,$g){
+
+function add_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image, $product_keywords)
+{
     //create an instance of product class
     $newprod_object = new product_class();
 
     //run the add product method
-    $insertprod = $newprod_object->add_new_product($a, $b, $c,$d, $e,$f,$g);
+    $insertprod = $newprod_object->add_new_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image, $product_keywords);
+    return $insertprod = $insertprod ?: false;
 
-    //check if method worked
-    if ($insertprod) {
-
-        //return query result (boolean)
-        return $insertprod;
-
-    }else{
-
-        return false;
-    }
 }
 
-
-
-function insert_image($a){
-    //create an instance of product class
+function addBrand($brand){
     $newprod_object = new product_class();
+    $insert_brand = $newprod_object->create_brand($brand);
 
-    //run the add product method
-    $insertprod = $newprod_object->insert_image($a);
-
-    //check if method worked
-    if ($insertprod) {
-
-        //return query result (boolean)
-        return $insertprod;
-
-    }else{
-
-        return false;
-    }
+    return $insert_brand = $insert_brand ?: false;
 }
 
 
-function view_all_images(){
+function updateBrand($brand,$id){
+    $newprod_object = new product_class();
+    $insert_brand = $newprod_object->update_brand($brand,$id);
+    return $insert_brand = $insert_brand ?: false;
+}
+
+function deleteBrand($id){
+    $newprod_object = new product_class();
+    $insert_brand = $newprod_object->delete_brand($id);
+    return $insert_brand = $insert_brand ?: false;
+}
+
+function addCategory($category){
+    $newprod_object = new product_class();
+    $check = $newprod_object->add_product_category($category);
+
+    return $check = $check ?: false;
+}
+function getOneCategory($stm){
+    //Create an array variable to hold list of search records
+    $product_array = array();
+
+    //create an instance of the product class
+    $product_object = new product_class();
+
+    //run the search product method
+    $product_records = $product_object->get_one_category($stm);
+
+    //check if the method worked
+    if ($product_records) {
+
+        //loop to see if there is more than one result
+        //fetch one at a time
+        while ($one_record = $product_object->db_fetch()) {
+
+            //Assign each result to the array
+            $product_array[] = $one_record;
+        }
+    }
+    //return the array
+    return $product_array;
+}
+
+function getAllCategories(){
+    //Create an array variable to hold list of search records
+    $product_array = array();
+
+    //create an instance of the product class
+    $product_object = new product_class();
+
+    //run the search product method
+    $product_records = $product_object->get_categories();
+
+    //check if the method worked
+    if ($product_records) {
+
+        //loop to see if there is more than one result
+        //fetch one at a time
+        while ($one_record = $product_object->db_fetch()) {
+
+            //Assign each result to the array
+            $product_array[] = $one_record;
+        }
+    }
+    //return the array
+    return $product_array;
+}
+
+function deleteCategory($id){
+    $newprod_object = new product_class();
+    $insert_brand = $newprod_object->delete_category($id);
+    return $insert_brand = $insert_brand ?: false;
+}
+
+function updateCategory($brand,$id){
+    $newprod_object = new product_class();
+    $insert_brand = $newprod_object->update_category($brand,$id);
+    return $insert_brand = $insert_brand ?: false;
+}
+
+
+function viewAllProducts(){
     //Create an array variable to hold list of products
     $product_array = array();
 
@@ -51,7 +110,7 @@ function view_all_images(){
     $product_object = new product_class();
 
     //run the view all product method
-    $product_records = $product_object->view_all_images();
+    $product_records = $product_object->view_all_products();
 
     //check if the method worked
     if ($product_records) {
@@ -68,6 +127,66 @@ function view_all_images(){
 }
 
 
+function getOneBrand($stm){
+    //Create an array variable to hold list of search records
+    $product_array = array();
+
+    //create an instance of the product class
+    $product_object = new product_class();
+
+    //run the search product method
+    $product_records = $product_object->geOneBrand($stm);
+
+    //check if the method worked
+    if ($product_records) {
+
+        //loop to see if there is more than one result
+        //fetch one at a time
+        while ($one_record = $product_object->db_fetch()) {
+
+            //Assign each result to the array
+            $product_array[] = $one_record;
+        }
+    }
+    //return the array
+    return $product_array;
+}
+
+
+function getAllBrand(){
+    //Create an array variable to hold list of search records
+    $product_array = array();
+
+    //create an instance of the product class
+    $product_object = new product_class();
+
+    //run the search product method
+    $product_records = $product_object->get_brands();
+
+    //check if the method worked
+    if ($product_records) {
+
+        //loop to see if there is more than one result
+        //fetch one at a time
+        while ($one_record = $product_object->db_fetch()) {
+
+            //Assign each result to the array
+            $product_array[] = $one_record;
+        }
+    }
+    //return the array
+    return $product_array;
+}
+
+
+
+
+
+
+
+
+
+// #####################################################################################
 
 
 //search product function - takes the search term
