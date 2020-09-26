@@ -1,8 +1,15 @@
 
 <?php
   //start session
-  session_start();
+
   require ('../controllers/productcontroller.php');
+  require_once ('../settings/core.php');
+
+  isAdmin();
+
+  $all_cat = getAllCategories();
+  $all_brand = getAllBrand();
+
 
 //  getOneBrand()
 ?>
@@ -80,7 +87,7 @@
                       <a class="nav-link btn" data-toggle="modal" data-target="#addCategoryModal">Add Category</a>
                   </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="addproduct.php">Add Products</a>
+                    <a class="nav-link" data-toggle="modal" data-target="#addProductModal" href="#addproduct.php">Add Products</a>
                 </li>
                 <li class="nav-item">
 <!--                    <a class="nav-link" href="manage.php">Manage Products</a>-->
@@ -110,9 +117,9 @@
 
           <!-- Modal -->
 
-
+<!-- ADD CATEGORY MODAL -->
           <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
+              <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
@@ -142,10 +149,11 @@
                   </div>
               </div>
           </div>
+<!--   ADD CATEGORY MODAL - END       -->
 
-
+<!--         ADD BRAND MODAL  -->
           <div class="modal fade" id="addBrandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
+              <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                       <div class="modal-header">
                           <h5 class="modal-title" id="exampleModalLabel">Add New Brand</h5>
@@ -176,8 +184,146 @@
                   </div>
               </div>
           </div>
+<!--  ADD BRAND MODAL  END -->
+
+<!--          ADD PRODUCT MODAL-->
+          <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <form method="post" action="productproc.php" enctype="multipart/form-data" onsubmit="return validateUpload();" >
 
 
+                              <div class="form-group">
+                                  <div class="input-group input-group-merge input-group-alternative mb-3">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="ni ni-ui-04"></i></span>
+                                      </div>
+                                      <select id="brand_id" class="form-control" name="brand_id" required>
+                                          <option  value="none"> -- select brand -- </option>
+                                      <?php
+                                      if ($all_brand){
+                                          foreach ($all_brand as $value){
+                                              $brand_name = $value['brand_name'];
+                                              $brand_id = $value['brand_id'];
+
+                                              echo "<option value='<?= isset($brand_id)? $brand_id :'' >$brand_name</option>";
+                                          }
+
+                                      }
+                                      ?>
+                                      </select >
+                                      <small style="color:red;" id="category_error"></small>
+
+<!--                                      <input id="name" type="text" placeholder="Name" class="form-control " name="name"   autocomplete="name" autofocus>-->
+                                      <select id="category_id" class="form-control pull-right" name="category_id"  required>
+                                          <option value="none"> -- select category -- </option>
+                                          <?php
+                                          if ($all_cat){
+                                              foreach ($all_cat as $value){
+                                                  $cat_name = $value['cat_name'];
+                                                  $cat_id = $value['cat_id'];
+
+                                                  echo "<option value='<?= isset($cat_id)? $cat_id :'' >$cat_name</option>";
+                                              }
+
+                                          }
+                                          ?>
+
+                                      </select>
+                                  </div>
+
+
+                                  <small style="color:red;" id="category_error"></small>
+                              </div>
+
+                              <div class="form-group">
+                                  <div class="input-group input-group-merge input-group-alternative mb-3">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="ni ni-align-left-2"></i></span>
+                                      </div>
+                                      <input  type="text" placeholder="Product title" class="form-control " name="prod_title" id="prod_title" value=""  autocomplete="title" autofocus required>
+                                  </div>
+
+
+                                  <small style="color:red;" id="title_error"></small>
+
+                              </div>
+                              <div class="form-group">
+                                  <small class="mb-2">Price: </small>
+                                  <div class="input-group input-group-merge input-group-alternative mb-3">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="ni ni-active-40"></i></span>
+                                      </div>
+                                      <input  type="number" placeholder="Product price"  class="form-control "  id="prod_price" name="prod_price" value="" autocomplete="price" required>
+
+                                  </div>
+
+
+                                  <small style="color:red;" id="price_error"></small>
+
+                              </div>
+
+                              <div class="form-group">
+                                  <div class="input-group input-group-merge input-group-alternative">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="ni ni-align-left-2"></i></span>
+                                      </div>
+                                      <textarea   cols="3" rows="3" id="prod_desc" name="prod_desc" class="form-control" value="" placeholder="Product description" required></textarea>
+
+
+                                  </div>
+
+
+                                  <small style="color:red;" id="description_error"></small>
+
+                              </div>
+
+                              <div class="form-group">
+                                  <div class="input-group input-group-merge input-group-alternative">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="ni ni-image"></i></span>
+                                      </div>
+                                      <input type="file" class="form-control" id="prod_img" name="prod_img" accept="image/x-png,image/gif,image/jpeg" placeholder="Select product image" required>
+
+
+
+                                  </div>
+
+                                  <small style="color:red;" id="image_error" ></small>
+                              </div>
+
+                              <div class="form-group">
+
+<!--                                  <div class="input-group input-group-merge input-group-alternative mb-3">-->
+<!--                                      <div class="input-group-prepend">-->
+<!--                                          <span class="input-group-text"><i class="ni ni-active-40"></i></span>-->
+<!--                                      </div>-->
+<!--                                      <input  type="hidden" class="form-control" name="status" value="1">-->
+<!---->
+<!--                                  </div>-->
+
+                              </div>
+
+
+                              <input type="submit" name="upload_product" class="btn btn-primary" value="Add Product">
+
+
+                          </form>
+
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+
+          <!--          ADD PRODUCT MODAL END -->
           <h2 class="mb-4"><?php if(!empty($_SESSION['admin_id'])){
                                 echo ("Welcome"." ".$_SESSION["admin_name"]);
                                 }else {
@@ -204,10 +350,10 @@
 
 
 
-              $displaylist = getAllBrand();
 
-              if ($displaylist) {
-                  foreach ($displaylist as $value) {
+
+              if ($all_brand) {
+                  foreach ($all_brand as $value) {
                       $id = $value['brand_id'];
                       $name = $value['brand_name'];
 
@@ -306,6 +452,7 @@
     <script src="js/main.js"></script>
     <script src="js/alert.js"></script>
     <script src="js/ajax.js"></script>
+    <script src="js/validation.js"></script>
 
   </body>
 </html>

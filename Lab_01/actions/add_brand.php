@@ -115,4 +115,11 @@ if (isset($_POST['update_category'])){
 }
 
 
+if (isset($_POST['upload_prod'])){
+
+    echo "we dey give you";
+
+}
+
+
 

@@ -49,28 +49,35 @@
 
 <?php endif ?>
 
-<!---->
-<?php //if (isset($_SESSION['success'])): ?>
-<!---->
-<!--    <div class="alert alert-success">-->
-<!--        --><?php
-//        echo $_SESSION['success'];
-//        unset($_SESSION['success']);
-//        ?>
-<!---->
-<!--    </div>-->
-<!---->
-<?php //endif ?>
-<!---->
-<!---->
-<!---->
-<?php //if (isset($_SESSION['error'])): ?>
-<!--    <div class='alert alert-danger'>-->
-<!---->
-<!--        --><?php
-//        echo $_SESSION['error'];
-//        unset($_SESSION['error']);
-//        ?>
-<!---->
-<!--    </div>-->
-<?php //endif ?>
+
+
+
+
+
+
+
+<?php if (isset($_SESSION['upload_error'])): ?>
+    <div class='alert alert-danger'>
+
+        <?php
+        echo $_SESSION['upload_error'];
+        unset($_SESSION['upload_error']);
+        ?>
+
+    </div>
+<?php endif ?>
+
+
+<?php if (isset($_SESSION['upload_success'])): ?>
+
+    <div class="alert alert-success">
+        <?php
+        echo $_SESSION['upload_success'];
+        unset($_SESSION['upload_success']);
+        ?>
+
+    </div>
+
+<?php endif ?>
+
+

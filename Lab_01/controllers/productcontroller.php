@@ -2,13 +2,13 @@
 //connection to the product class is done in the cart controller. to avoid duplicate
 require("../classes/productclass.php");
 
-function add_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image, $product_keywords)
+function add_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image)
 {
     //create an instance of product class
     $newprod_object = new product_class();
 
     //run the add product method
-    $insertprod = $newprod_object->add_new_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image, $product_keywords);
+    $insertprod = $newprod_object->add_new_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image);
     return $insertprod = $insertprod ?: false;
 
 }

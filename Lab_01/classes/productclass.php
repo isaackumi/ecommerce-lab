@@ -82,10 +82,10 @@ class product_class extends db_connection
 //    ##########      CATEGORY  - END   ################################
 
 
-    public function add_new_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image, $product_keywords){
+    public function add_new_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image){
 
         //Write the insert sql
-        $sql = "INSERT INTO products(product_cat, product_brand, product_title, product_price, product_desc, product_image, product_keywords) VALUES('$product_cat', '$product_brand', '$product_title', '$product_price', '$product_desc', '$product_image', '$product_keywords')";
+        $sql = "INSERT INTO products(product_cat, product_brand, product_title, product_price, product_desc, product_image) VALUES('$product_cat', '$product_brand', '$product_title', '$product_price', '$product_desc', '$product_image')";
         //execute the sql and return boolean
         return $this->db_query($sql);
     }

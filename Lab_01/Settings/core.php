@@ -45,9 +45,9 @@ function check_permission(){
 
 function isAdmin(){
     if (isset($_SESSION['admin_id'])){
-        return true;
+        header('Location: ./admin/index.php ');
     }
-    return false;
+    header('Location: ../Login/login_admin.php');
 }
 
 //get user ip

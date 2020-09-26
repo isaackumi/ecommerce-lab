@@ -58,7 +58,7 @@ if (isset($_POST['login_admin'])){
 //    echo $customer_pass;
     $check_login = login_admin($customer_email);
 //    print_r($check_login);
-    $role = $check_login[0]['user_role'];
+    $role = isset($check_login[0]['user_role']) ?$check_login[0]['user_role'] : null;
 
 
     if ( $role == 1) {
@@ -75,9 +75,12 @@ if (isset($_POST['login_admin'])){
             $_SESSION["admin_name"] = $check_login[0]['customer_name'];
 
             //redirection to home page
-            if(isAdmin()){
-                header('Location: ../admin/index.php');
-            }else{
+
+            if(isset($_SESSION['admin_id'])){
+                    header('Location: ../admin/index.php');
+                }
+
+            else{
                 header('Location: login_admin.php');
             }
 

@@ -2,6 +2,7 @@
 session_start();
 ob_start();
 
+
 ?>
 
 <!DOCTYPE html>
@@ -28,9 +29,9 @@ ob_start();
 <!---->
 <?php
 //// Req
-//require("./controllers/customer_controller.php");
-//require("./controllers/logincontroller.php");
-//require("./controllers/productcontroller.php");
+//require("/controllers/customer_controller.php");
+//require("/controllers/logincontroller.php");
+//require("/controllers/productcontroller.php");
 //?>
 
 <div class="super_container">
