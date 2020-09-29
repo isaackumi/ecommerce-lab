@@ -1,14 +1,32 @@
 
 
+
+
+// $(document).ready(function(){
+//
+//     $( "#Uploadform" ).submit(function( event ) {
+//         event.preventDefault();
+//
+//         validateUpload();
+//
+//
+//
+//
+//
+//     });
+//
+//
+//
+// });
 function validateUpload(){
     var prod_title =  document.getElementById("prod_title").value;
-    var prod_category = document.getElementById("prod_category").value;
-    var prod_brand = document.getElementById("prod_brand").value;
+    // var prod_category = document.getElementById("prod_category").value;
+    // var prod_brand = document.getElementById("prod_brand").value;
     var prod_price = document.getElementById("prod_price").value;
-    var prod_descr = document.getElementById("prod_descr").value;
-    alert(prod_title);
+    var prod_desc = document.getElementById("prod_desc").value;
+
     // var prod_keyword = document.getElementById("prod_keyword").value;
-    var prod_pic = document.getElementById("prod_pic").value;
+    // var prod_pic = document.getElementById("prod_img").value;
     var success = true;
 
     if(!validateTitle(prod_title))
@@ -19,52 +37,48 @@ function validateUpload(){
     }
 
     // // validate category
-    if(!validateCategory(prod_category))
-    {
-        document.getElementById("prod_category_err").innerHTML = "Please select a category";
-        document.UploadForm.prod_category.focus() ;
-        success = false;
-    }
+    // if(!validateCategory(prod_category)){
+    //     document.getElementById("prod_category_err").innerHTML = "Please select a category";
+    //     document.UploadForm.prod_category.focus() ;
+    //     success = false;
+    // }
 
     // // validate prod_brand
-    if(!validateBrand(prod_brand))
-    {
-        document.getElementById("prod_brand_err").innerHTML = "Please select a brand";
-        document.UploadForm.prod_brand.focus() ;
-        success = false;
-    }
+    // if(!validateBrand(prod_brand)){
+    //     document.getElementById("prod_brand_err").innerHTML = "Please select a brand";
+    //     document.UploadForm.prod_brand.focus() ;
+    //     success = false;
+    // }
 
     // validate Price
     if(!prod_price.match(/^[0-9.]+$/))
     {
-        document.getElementById("prod_price_err").innerHTML = "Invalid Price, Must be an integer or float";
+        document.getElementById("price_error").innerHTML = "Invalid Price, Must be an integer or float";
         document.UploadForm.prod_price.focus() ;
         success = false;
     }
 
     // validate prod_descr
-    if(prod_descr.length <=0)
+    if(prod_desc.length <=5)
     {
-        document.getElementById("prod_descr_err").innerHTML = "Description must not be empty";
-        document.UploadForm.prod_descr.focus() ;
+        document.getElementById("description_error").innerHTML = "Description must not be empty";
+        document.UploadForm.prod_desc.focus() ;
         success = false;
     }
 
     // validate prod_keyword
-    if(prod_keyword.length <=0)
-    {
-        document.getElementById("prod_keyword_err").innerHTML = "keyword must not be empty";
-        document.UploadForm.prod_keyword.focus() ;
-        success = false;
-    }
+    // if(prod_keyword.length <=0){
+    //     document.getElementById("prod_keyword_err").innerHTML = "keyword must not be empty";
+    //     document.UploadForm.prod_keyword.focus() ;
+    //     success = false;
+    // }
 
     // validate prod_keyword
-    if(prod_pic.length <=0)
-    {
-        document.getElementById("prod_pic_err").innerHTML = "Please upload a picture";
-        document.UploadForm.prod_pic.focus() ;
-        success = false;
-    }
+    // if(prod_img.length <=0) {
+    //     document.getElementById("prod_pic_err").innerHTML = "Please upload a picture";
+    //     document.UploadForm.prod_img.focus() ;
+    //     success = false;
+    // }
 
     return success;
 
@@ -75,7 +89,8 @@ a function to validate product title.
 it returns true if value is alphabets only and false otherwise
 */
 function validateTitle(title){
-    if(title.match(/^[A-Za-z0-9 _-]+$/))
+    pattern = /^[A-Za-z_-]+$/g;
+    if(pattern.test(title))
         return true;
     else
         return false;

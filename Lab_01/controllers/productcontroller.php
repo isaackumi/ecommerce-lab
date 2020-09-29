@@ -179,6 +179,64 @@ function getAllBrand(){
 }
 
 
+//delete a product function - takes the id
+function deleteOneProduct($a){
+    //create an instance of the product class
+    $product_object = new product_class();
+
+    //run the delete one product method
+    $delete_product = $product_object->delete_one_product($a);
+
+    //check if method worked
+    if ($delete_product) {
+
+        //return query result (boolean)
+        return $delete_product;
+    }else{
+        //return false
+        return false;
+    }
+}
+
+function getOneProduct($stm){
+    //Create an array variable to hold list of search records
+    $product_array = array();
+
+    //create an instance of the product class
+    $product_object = new product_class();
+
+    //run the search product method
+    $product_records = $product_object->get_one_product($stm);
+
+    //check if the method worked
+    if ($product_records) {
+
+        //loop to see if there is more than one result
+        //fetch one at a time
+        while ($one_record = $product_object->db_fetch()) {
+
+            //Assign each result to the array
+            $product_array[] = $one_record;
+        }
+    }
+    //return the array
+    return $product_array;
+}
+
+function updateProduct($category_id,$brand_id,$prod_title,$prod_price,$prod_desc,$fileName,$product_id){
+    $newprod_object = new product_class();
+    $insert_brand = $newprod_object->update_one_product($category_id,$brand_id,$prod_title,$prod_price,$prod_desc,$fileName,$product_id);
+    return $insert_brand = $insert_brand ?: false;
+}
+
+function deleteProduct($id){
+    $newprod_object = new product_class();
+    $insert_brand = $newprod_object->delete_one_product($id);
+    return $insert_brand = $insert_brand ?: false;
+}
+
+
+
 
 
 
@@ -408,24 +466,6 @@ function update_status($a,$b){
 }
 
 
-//delete a product function - takes the id
-function delete_product_fxn($a){
-    //create an instance of the product class
-    $product_object = new product_class();
-
-    //run the delete one product method
-    $delete_product = $product_object->delete_one_product($a);
-
-    //check if method worked
-    if ($delete_product) {
-
-        //return query result (boolean)
-        return $delete_product;
-    }else{
-        //return false
-        return false;
-    }
-}
 
 function add_to_cart($a, $b){
     //create an instance of cart class

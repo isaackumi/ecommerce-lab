@@ -5,6 +5,22 @@ require("../settings/core.php");
 //include the cart controller
 require('../controllers/productcontroller.php');
 
+// include composer autoload
+require '../vendor/autoload.php';
+
+// import the Intervention Image Manager Class
+use Intervention\Image\ImageManagerStatic as Image;
+
+// configure with favored image driver (gd by default)
+Image::configure(array('driver' => 'imagick'));
+
+
+// and you are ready to go ...
+//$image = Image::make('public/foo.jpg')->resize(300, 200);
+
+
+
+
 
 
 function uploadImage1(){
@@ -69,43 +85,52 @@ function uploadImage1(){
 
 
 
-$upload = uploadImage1();
+//$upload = uploadImage1();
 
 
 
 		//check if submit button was clicked
 if (isset($_POST['upload_product'])){
 	$folderName = "./images/uploads/";
-    $fileName1 = $folderName . basename($_FILES["prod_img"]["name"]);
+    $fileName1 = basename($_FILES["prod_img"]["name"]);
 
 
-	$category_id =(int)$_POST['category_id'];
-	$brand_id = (int)$_POST['brand_id'];
+	$category_id =(int)$_POST['prod_category'];
+	$brand_id = (int)$_POST['prod_brand'];
 	$prod_title = $_POST['prod_title'];
     $prod_price = $_POST['prod_price'];
     $prod_desc = $_POST['prod_desc'];
-    echo "<br>";
-    echo $fileName1;
-    echo "<br>";
-    echo $category_id;
-    echo "<br>";
-    echo $brand_id;
-    echo "<br>";
-    echo $prod_title;
-    echo "<br>";
-    echo $prod_price;
-    echo "<br>";
-    echo $prod_desc;
-    echo "<br>";
-    echo gettype($category_id);
-    echo "<br>";
-    echo gettype($brand_id);
 
-    exit;
+
+
+//    echo "<br>";
+//    echo $fileName1;
+//    echo "<br>";
+//    echo $category_id;
+//    echo "<br>";
+//    echo $brand_id;
+//    echo "<br>";
+//    echo $prod_title;
+//    echo "<br>";
+//    echo $prod_price;
+//    echo "<br>";
+//    echo $prod_desc;
+//    echo "<br>";
+//    echo gettype($category_id);
+//    echo "<br>";
+//    echo gettype($brand_id);
+
+
+
+
 
 
 
     $insert_product= add_product($category_id,$brand_id,$prod_title,$prod_price,$prod_desc,$fileName1);
+
+
+
+
 
 
     if($insert_product){

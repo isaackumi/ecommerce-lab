@@ -9,6 +9,7 @@
 
   $all_cat = getAllCategories();
   $all_brand = getAllBrand();
+  $all_products = viewAllProducts();
 
 
 //  getOneBrand()
@@ -96,7 +97,7 @@
 <!--                    <a class="nav-link" href="addgallery.php">Gallery Upload</a>-->
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#logout.php">Logout</a>
+                    <a class="nav-link" href="logout.php">Logout</a>
                 </li>
               </ul>
             </div>
@@ -197,7 +198,7 @@
                           </button>
                       </div>
                       <div class="modal-body">
-                          <form method="post" action="productproc.php" enctype="multipart/form-data" onsubmit="return validateUpload();" >
+                          <form method="post" id="UploadForm" action="productproc.php" enctype="multipart/form-data" onsubmit="return validateUpload()">
 
 
                               <div class="form-group">
@@ -205,15 +206,15 @@
                                       <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="ni ni-ui-04"></i></span>
                                       </div>
-                                      <select id="brand_id" class="form-control" name="brand_id" required>
-                                          <option  value="none"> -- select brand -- </option>
+                                      <select id="brand_id" class="form-control" name="prod_brand" required>
+                                          <option  value="" disabled selected> -- select brand -- </option>
                                       <?php
                                       if ($all_brand){
                                           foreach ($all_brand as $value){
                                               $brand_name = $value['brand_name'];
                                               $brand_id = $value['brand_id'];
 
-                                              echo "<option value='<?= isset($brand_id)? $brand_id :'' >$brand_name</option>";
+                                              echo "<option value='$brand_id'>$brand_name</option>";
                                           }
 
                                       }
@@ -222,15 +223,15 @@
                                       <small style="color:red;" id="category_error"></small>
 
 <!--                                      <input id="name" type="text" placeholder="Name" class="form-control " name="name"   autocomplete="name" autofocus>-->
-                                      <select id="category_id" class="form-control pull-right" name="category_id"  required>
-                                          <option value="none"> -- select category -- </option>
+                                      <select id="category_id" class="form-control pull-right" name="prod_category"  required>
+                                          <option value="" disabled selected> -- select category -- </option>
                                           <?php
                                           if ($all_cat){
                                               foreach ($all_cat as $value){
                                                   $cat_name = $value['cat_name'];
                                                   $cat_id = $value['cat_id'];
 
-                                                  echo "<option value='<?= isset($cat_id)? $cat_id :'' >$cat_name</option>";
+                                                  echo "<option value='$cat_id' >$cat_name</option>";
                                               }
 
                                           }
@@ -275,7 +276,7 @@
                                       <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="ni ni-align-left-2"></i></span>
                                       </div>
-                                      <textarea   cols="3" rows="3" id="prod_desc" name="prod_desc" class="form-control" value="" placeholder="Product description" required></textarea>
+                                      <textarea   cols="3" rows="3" id="prod_desc" name="prod_desc" class="form-control"  placeholder="Product description" required></textarea>
 
 
                                   </div>
@@ -419,6 +420,64 @@
 
                           echo "<td><a href='../actions/add_brand.php?delete_category_id=$uid' class= 'btn btn-outline-danger delete_brand' >Delete</a>
         | <a href='update_category.php?upid=$uid' id='addBrandModal' class= 'btn btn-outline-success update_brand' >Update</a>
+  </td>";
+
+                          echo "</tr>";
+
+
+                      }
+                  }
+
+
+
+
+
+                  ?>
+                  </tbody>
+              </table>
+          </div>
+
+
+          <div class="mt-5">
+              <h5>All Products</h5>
+              <table class="table table-hover ">
+                  <thead>
+                  <tr>
+
+                      <th>Title</th>
+                      <th>Price</th>
+                      <th>Description</th>
+
+                      <th>Action</th>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  <?php
+
+
+
+
+
+                  if ($all_products) {
+                      foreach ($all_products as $value) {
+                          $id = $value['product_id'];
+                          $title = $value['product_title'];
+                          $price = $value['product_price'];
+                          $desc = $value['product_desc'];
+
+
+                          $_SESSION['id']=$id;
+                          $uid=$_SESSION['id'];
+
+                          echo "<tr>";
+                          echo "<td>$title</td>";
+                          echo "<td>$price</td>";
+                          echo "<td>$desc</td>";
+
+                          echo "<td><a href='../actions/add_brand.php?delete_product_id=$uid' class= 'btn btn-outline-danger delete_brand' >Delete</a>
+        | <a href='update_product.php?upid=$uid' id='addBrandModal' class= 'btn btn-outline-success update_brand' >Update</a>
   </td>";
 
                           echo "</tr>";

@@ -10,7 +10,8 @@ session_start();
 $current_file = $_SERVER['SCRIPT_NAME'];
 
 //function to check for login
-function check_login(){
+
+function isNormalUser(){
     //check if login session user id  exist
     if (!isset($_SESSION['user_id']))
     {
@@ -21,7 +22,6 @@ function check_login(){
 }
 
 //function to get customer id
-
 function get_customer_id(){
     //check if login session userid exit
     if (isset($_SESSION['user_id']))
@@ -44,10 +44,19 @@ function check_permission(){
 }
 
 function isAdmin(){
-    if (isset($_SESSION['admin_id'])){
-        header('Location: ./admin/index.php ');
+    if (!isset($_SESSION['admin_id'])){
+        header('Location: ../Login/login_admin.php');
+        exit;
     }
-    header('Location: ../Login/login_admin.php');
+
+
+
+
+
+
+
+
+
 }
 
 //get user ip

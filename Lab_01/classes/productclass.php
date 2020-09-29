@@ -107,6 +107,42 @@ class product_class extends db_connection
     }
 
 
+    public function update_one_product($category_id,$brand_id,$prod_title,$prod_price,$prod_desc,$fileName,$product_id){
+        //a query to update a product
+        $sql = "UPDATE products
+                        SET `product_title`='$prod_title',
+                            `product_cat`='$category_id',
+                            `product_brand`='$brand_id',
+                            `product_desc`='$prod_desc' ,
+                            `product_price`='$prod_price',
+                            `product_image`='$fileName'
+                WHERE product_id='$product_id'";
+
+        //execute the query and return boolean
+        return $this->db_query($sql);
+    }
+
+    /**
+     *method to delete a product using an id
+     *takes the id
+     */
+    public function delete_one_product($a){
+        //a query to delete product using an id
+        $sql = "DELETE from products WHERE product_id=$a";
+
+        //execute the query and return boolean
+        return $this->db_query($sql);
+    }
+
+    public function get_one_product($a){
+        //a query to delete product using an id
+        $sql = "SELECT * FROM `products` WHERE product_id=$a";
+
+        //execute the query and return boolean
+        return $this->db_query($sql);
+    }
+
+
 
 
 //    ######################################################################################
@@ -189,25 +225,7 @@ class product_class extends db_connection
      *method to update a product
      *takes the id, title and price
      */
-    public function update_one_product($a, $b, $c){
-        //a query to update a product
-        $sql = "UPDATE products SET `product_title`='$b', `product_price`='$c' WHERE product_id=$a";
 
-        //execute the query and return boolean
-        return $this->db_query($sql);
-    }
-
-    /**
-     *method to delete a product using an id
-     *takes the id
-     */
-    public function delete_one_product($a){
-        //a query to delete product using an id
-        $sql = "DELETE from products WHERE product_id=$a";
-
-        //execute the query and return boolean
-        return $this->db_query($sql);
-    }
 
 
 

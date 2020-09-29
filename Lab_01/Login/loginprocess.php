@@ -19,7 +19,7 @@ if (isset($_POST['login_user'])){
     $check_login = login_user($customer_email);
     $role = $check_login[0]['user_role'];
 
-    if ($check_login && $role == 1) {
+    if ($check_login) {
         //email exist, continue to password
         //get password from database
         $hash = $check_login[0]['customer_pass'];
@@ -56,9 +56,16 @@ if (isset($_POST['login_admin'])){
     $customer_pass = $_POST['admin_pass'];
 //    echo $customer_email;
 //    echo $customer_pass;
+//
+//    exit;
     $check_login = login_admin($customer_email);
+//    print_r($check_login); ----- passed
+//    exit;
 //    print_r($check_login);
-    $role = isset($check_login[0]['user_role']) ?$check_login[0]['user_role'] : null;
+    $role = isset($check_login[0]['user_role']) ?$check_login[0]['user_role'] : null ;
+
+//    echo $role;
+//    exit;
 
 
     if ( $role == 1) {
@@ -67,37 +74,23 @@ if (isset($_POST['login_admin'])){
         $hash = $check_login[0]['customer_pass'];
 
 
-        if (password_verify($customer_pass, $hash))
-        {
+        if (password_verify($customer_pass, $hash)) {
             //create session for id, role and name
             $_SESSION["admin_id"] = $check_login[0]['customer_id'];
             $_SESSION["admin_role"] = $check_login[0]['user_role'];
             $_SESSION["admin_name"] = $check_login[0]['customer_name'];
 
             //redirection to home page
-
-            if(isset($_SESSION['admin_id'])){
-                    header('Location: ../admin/index.php');
-                }
-
-            else{
+            header('Location: ../admin/index.php');
+            exit;
+        }else{
                 header('Location: login_admin.php');
             }
 
 
 
             //to make sure the code below does not execute after redirection use exit
-            exit;
-        } else
-        {
-            //echo appropriate error
-            echo "error";
 
-            header('Location: login_admin.php');
         }
 
-    } else{
-        //echo appropriate error
-        echo "incorrect username or password";
     }
-}
