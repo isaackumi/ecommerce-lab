@@ -117,9 +117,11 @@ if (isset($_POST['update_category'])){
 
 if (isset($_POST['update_prod'])){
 
-    function uploadImage1(){
+    function uploadImage(){
         //the directory/path of the image
-        $folderName = "../admin/images/uploads";
+        $folderName = "../admin/images/uploads/";
+
+        // $folderName = "./images/uploads/";
 
         $fileName1 = $folderName . basename($_FILES["prod_img"]["name"]);
         //set a variable 'uploadOk' and make it equal to 1.
@@ -172,8 +174,11 @@ if (isset($_POST['update_prod'])){
         }
     }
 
-    $folderName = "../admin/images/uploads";
-    $fileName = basename($_FILES["prod_img"]["name"]);
+    uploadImage();
+
+    $folderName = "../admin/images/uploads/";
+    // $folderName = "../admin/images/uploads/";
+    $fileName =$folderName . basename($_FILES["prod_img"]["name"]);
 
 
     $category_id =(int)$_POST['prod_category'];
@@ -214,6 +219,3 @@ if (isset($_GET['delete_product_id'])){
         header('Location: ../admin/index.php');
     }
 }
-
-
-

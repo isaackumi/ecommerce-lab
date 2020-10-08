@@ -1,6 +1,8 @@
 <?php
 
-require("../settings/db_class.php");
+// require("../settings/db_class.php");
+
+require __DIR__.'/../settings/db_class.php';
 
 class product_class extends db_connection
 {
@@ -82,6 +84,13 @@ class product_class extends db_connection
 //    ##########      CATEGORY  - END   ################################
 
 
+
+
+
+
+//    ##########      PRODUCTS  ################################
+
+
     public function add_new_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image){
 
         //Write the insert sql
@@ -143,9 +152,19 @@ class product_class extends db_connection
     }
 
 
+    public function search_a_product($sterm){
+        //a query to search product matching term
+        $sql = "SELECT * FROM products WHERE product_title LIKE '%$sterm%'";
+
+        //execute the query and return boolean
+        return $this->db_query($sql);
+    }
 
 
-//    ######################################################################################
+
+//    ##########      PRODUCTS  - END   ################################
+
+
 
 
 
@@ -213,13 +232,6 @@ class product_class extends db_connection
      *method to search product
      *takes the search term
      */
-    public function search_a_product($sterm){
-        //a query to search product matching term
-        $sql = "SELECT * FROM products WHERE product_title LIKE '%$sterm%'";
-
-        //execute the query and return boolean
-        return $this->db_query($sql);
-    }
 
     /**
      *method to update a product

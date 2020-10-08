@@ -19,13 +19,23 @@ Image::configure(array('driver' => 'imagick'));
 //$image = Image::make('public/foo.jpg')->resize(300, 200);
 
 
+/*
+|--------------------------------------------------------------------------
+| Product Processing
+|--------------------------------------------------------------------------
+|
+| TThis file handles product upload from the admin
+|
+*/
 
 
 
 
-function uploadImage1(){
+
+
+function uploadImage(){
     //the directory/path of the image
-    $folderName = "./images/uploads/";
+    $folderName = "../images/";
     //fileName: a variable with the folder name and the name of the image
     //fileToUpload: is the name of the input in the form
     //name: specifies the name of the file that is being uploaded
@@ -85,14 +95,14 @@ function uploadImage1(){
 
 
 
-//$upload = uploadImage1();
+uploadImage();
 
 
 
 		//check if submit button was clicked
 if (isset($_POST['upload_product'])){
-	$folderName = "./images/uploads/";
-    $fileName1 = basename($_FILES["prod_img"]["name"]);
+	  $folderName = "./images/";
+    $fileName1 = $folderName.basename($_FILES["prod_img"]["name"]);
 
 
 	$category_id =(int)$_POST['prod_category'];
@@ -101,39 +111,9 @@ if (isset($_POST['upload_product'])){
     $prod_price = $_POST['prod_price'];
     $prod_desc = $_POST['prod_desc'];
 
-
-
-//    echo "<br>";
-//    echo $fileName1;
-//    echo "<br>";
-//    echo $category_id;
-//    echo "<br>";
-//    echo $brand_id;
-//    echo "<br>";
-//    echo $prod_title;
-//    echo "<br>";
-//    echo $prod_price;
-//    echo "<br>";
-//    echo $prod_desc;
-//    echo "<br>";
-//    echo gettype($category_id);
-//    echo "<br>";
-//    echo gettype($brand_id);
-
-
-
-
-
-
-
     $insert_product= add_product($category_id,$brand_id,$prod_title,$prod_price,$prod_desc,$fileName1);
 
-
-
-
-
-
-    if($insert_product){
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         if($insert_product){
     $_SESSION['upload_success'] = "Product added successfully";
         header('Location:index.php');
     }else{
@@ -147,6 +127,3 @@ if (isset($_POST['upload_product'])){
 
 
 ?>
-
-
-

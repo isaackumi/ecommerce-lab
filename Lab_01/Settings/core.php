@@ -3,6 +3,7 @@
 //header redirection
 ob_start();
 
+
 //start session
 session_start();
 
@@ -13,10 +14,11 @@ $current_file = $_SERVER['SCRIPT_NAME'];
 
 function isNormalUser(){
     //check if login session user id  exist
-    if (!isset($_SESSION['user_id']))
+    if (isset($_SESSION['user_id']))
     {
         //redirect to login page
-        header('Location: ../register/login.php');
+        // header('Location: ../register/login.php');
+        return true;
     }
     return false;
 }

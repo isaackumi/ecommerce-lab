@@ -1,0 +1,19 @@
+
+# ##########################     Admin    #########################
+
+Lab_01/admin/index.php  ----- Admin Index Page
+
+Lab_01/Login/login_admin.php  ------- Admin login Page
+
+Lab_01/Login/admin_register.php  -------- Admin Register
+
+
+
+
+# ##########################    Landing Page    #########################
+
+Lab_01/  ----------- Landing page
+
+Lab_01/Login/login.php  ------ Customer login page
+
+Lab_01/Login/register.php   ---------- Customer Registeration page

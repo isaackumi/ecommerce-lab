@@ -1,6 +1,8 @@
 <?php
 //connection to the product class is done in the cart controller. to avoid duplicate
-require("../classes/productclass.php");
+// require("../classes/productclass.php");
+
+require __DIR__.'/../classes/productclass.php';
 
 function add_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image)
 {
@@ -237,18 +239,8 @@ function deleteProduct($id){
 
 
 
-
-
-
-
-
-
-
-// #####################################################################################
-
-
 //search product function - takes the search term
-function search_product_fxn($stm){
+function searchProduct($stm){
     //Create an array variable to hold list of search records
     $product_array = array();
 
@@ -272,6 +264,389 @@ function search_product_fxn($stm){
     //return the array
     return $product_array;
 }
+
+
+
+
+function displayFeauturedProducts(){
+  $all_products = viewAllProducts();
+
+  if ($all_products) {
+      foreach ($all_products as $value) {
+          $id = $value['product_id'];
+          $title = $value['product_title'];
+          $price = $value['product_price'];
+          $desc = $value['product_desc'];
+
+        $img = $value['product_image'];
+
+        echo '
+
+        <div class="featured_slider_item">
+          <div class="border_active"></div>
+          <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+            <div class="product_image d-flex flex-column align-items-center justify-content-center"><a href="./view/product.php?product_id='.$id.'"><img src="'.$img.'" alt=""></a>
+            <div class="product_content">
+              <div class="product_price discount">GH¢ '.$price.'</div>
+              <div class="product_name"><div><a href="./view/product.php?product_id='.$id.'">'.$title.'</a></div></div>
+              <div class="product_extras">
+                <div class="product_color">
+                  <input type="radio" checked name="product_color" style="background:#b19c83">
+                  <input type="radio" name="product_color" style="background:#000000">
+                  <input type="radio" name="product_color" style="background:#999999">
+                </div>
+                <button class="product_cart_button">Add to Cart</button>
+              </div>
+
+            </div>
+            <div class="product_fav"><i class="fas fa-heart"></i></div>
+            <ul class="product_marks">
+
+              <li class="product_mark product_new">new</li>
+            </ul>
+          </div>
+        </div>
+
+
+        ';
+
+        }}
+}
+
+
+
+
+function displayPopularCategories(){
+  $all_products = viewAllProducts();
+
+  if ($all_products) {
+      foreach ($all_products as $value) {
+          $id = $value['product_id'];
+          $title = $value['product_title'];
+          $price = $value['product_price'];
+          $desc = $value['product_desc'];
+
+        $img = $value['product_image'];
+
+        echo '
+
+        <div class="owl-item">
+          <div class="popular_category d-flex flex-column align-items-center justify-content-center">
+            <div class="popular_category_image"><a href="./view/product.php?product_id='.$id.'"><img src="'.$img.'" alt=""></a></div>
+            <div class="popular_category_text"><a href="./view/product.php?product_id='.$id.'">'.$title.'</a></div>
+          </div>
+        </div>
+
+        ';
+
+        }}
+}
+
+
+
+
+function dealsOfTheWeek(){
+  $all_products = viewAllProducts();
+
+  if ($all_products) {
+      foreach ($all_products as $value) {
+          $id = $value['product_id'];
+          $cat_id = $value['product_cat'];
+          $title = $value['product_title'];
+          $price = $value['product_price'];
+          $desc = $value['product_desc'];
+
+        $img = $value['product_image'];
+
+        $one_cat = getOneCategory($cat_id);
+        $cat_name = $one_cat[0]['cat_name'];
+
+        echo '
+
+        <div class="owl-item deals_item">
+          <div class="deals_image"><img src="'.$img.'" alt=""></div>
+          <div class="deals_content">
+            <div class="deals_info_line d-flex flex-row justify-content-start">
+              <div class="deals_item_category"><a href="./view/product.php?product_id='.$id.'">'.$cat_name.'</a></div>
+              <div class="deals_item_price_a ml-auto">GH¢ '.$price.'</div>
+            </div>
+            <div class="deals_info_line d-flex flex-row justify-content-start">
+              <div class="deals_item_name">'.$title.'</div>
+              <div class="deals_item_price ml-auto">GH¢ '.$price.'</div>
+            </div>
+            <div class="available">
+              <div class="available_line d-flex flex-row justify-content-start">
+                <div class="available_title">Available: <span>1</span></div>
+                <div class="sold_title ml-auto">Already sold: <span>0</span></div>
+              </div>
+              <div class="available_bar"><span style="width:17%"></span></div>
+            </div>
+            <div class="deals_timer d-flex flex-row align-items-center justify-content-start">
+              <div class="deals_timer_title_container">
+                <div class="deals_timer_title">Hurry Up</div>
+                <div class="deals_timer_subtitle">Offer ends in:</div>
+              </div>
+              <div class="deals_timer_content ml-auto">
+                <div class="deals_timer_box clearfix" data-target-time="">
+                  <div class="deals_timer_unit">
+                    <div id="deals_timer1_hr" class="deals_timer_hr"></div>
+                    <span>hours</span>
+                  </div>
+                  <div class="deals_timer_unit">
+                    <div id="deals_timer1_min" class="deals_timer_min"></div>
+                    <span>mins</span>
+                  </div>
+                  <div class="deals_timer_unit">
+                    <div id="deals_timer1_sec" class="deals_timer_sec"></div>
+                    <span>secs</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        ';
+
+        }}
+}
+
+
+
+function hotNewArrivals(){
+  $all_products = viewAllProducts();
+
+  if ($all_products) {
+      foreach ($all_products as $value) {
+          $id = $value['product_id'];
+          $cat_id = $value['product_cat'];
+          $title = $value['product_title'];
+          $price = $value['product_price'];
+          $desc = $value['product_desc'];
+
+        $img = $value['product_image'];
+
+        $one_cat = getOneCategory($cat_id);
+        $cat_name = $one_cat[0]['cat_name'];
+
+        echo '
+        <div class="arrivals_slider_item">
+          <div class="border_active"></div>
+          <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
+            <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="'.$img.'" alt=""></div>
+            <div class="product_content">
+              <div class="product_price">GH¢ '.$price.'</div>
+              <div class="product_name"><div><a href="./view/product.php?product_id='.$id.'">'.$title.'</a></div></div>
+              <div class="product_extras">
+                <div class="product_color">
+                  <input type="radio" checked name="product_color" style="background:#b19c83">
+                  <input type="radio" name="product_color" style="background:#000000">
+                  <input type="radio" name="product_color" style="background:#999999">
+                </div>
+                <button class="product_cart_button">Add to Cart</button>
+              </div>
+            </div>
+            <div class="product_fav"><i class="fas fa-heart"></i></div>
+            <ul class="product_marks">
+              <li class="product_mark product_discount"></li>
+              <li class="product_mark product_new">new</li>
+            </ul>
+          </div>
+        </div>
+
+        ';
+
+        }}
+}
+
+
+
+function bestSellers(){
+  $all_products = viewAllProducts();
+
+  if ($all_products) {
+      foreach ($all_products as $value) {
+          $id = $value['product_id'];
+          $cat_id = $value['product_cat'];
+          $title = $value['product_title'];
+          $price = $value['product_price'];
+          $desc = $value['product_desc'];
+
+        $img = $value['product_image'];
+
+        $one_cat = getOneCategory($cat_id);
+        $cat_name = $one_cat[0]['cat_name'];
+
+        echo '
+        <div class="bestsellers_item discount">
+          <div class="bestsellers_item_container d-flex flex-row align-items-center justify-content-start">
+            <div class="bestsellers_image"><img src="'.$img.'" alt=""></div>
+            <div class="bestsellers_content">
+              <div class="bestsellers_category"><a href="./view/product.php?product_id='.$id.'">'.$cat_name.'</a></div>
+              <div class="bestsellers_name"><a href="product.html">'.$title.'</a></div>
+
+              <div class="bestsellers_price discount">GH¢ '.$price.'</div>
+            </div>
+          </div>
+          <div class="bestsellers_fav active"><i class="fas fa-heart"></i></div>
+          <ul class="bestsellers_marks">
+
+            <li class="bestsellers_mark bestsellers_new">new</li>
+          </ul>
+        </div>
+
+        ';
+
+        }}
+}
+
+
+
+function displayOneproduct(){
+
+
+  $id = isset($_GET['product_id'])? $_GET['product_id']:null;
+  $value = getOneProduct($id);
+
+
+  $id = $value[0]['product_id'];
+
+
+  $cat_id = $value[0]['product_cat'];
+  $brand_id = $value[0]['product_brand'];
+  $title = $value[0]['product_title'];
+  $price = $value[0]['product_price'];
+  $desc = $value[0]['product_desc'];
+
+$img = $value[0]['product_image'];
+
+
+$one_cat = getOneCategory($cat_id);
+$cat_name = $one_cat[0]['cat_name'];
+
+
+
+
+
+
+echo '
+
+
+
+				<div class="col-lg-5 order-lg-2 order-1">
+					<div class="image_selected"><img src=".'.$img.'" alt=""></div>
+				</div>
+
+
+				<div class="col-lg-5 order-3">
+					<div class="product_description">
+						<div class="product_category">'.$cat_name.'</div>
+						<div class="product_name">'.$title.'</div>
+
+						<div class="product_text"><p>'.substr($desc,0,70).'</p></div>
+						<div class="order_info d-flex flex-row">
+							<form action="#">
+								<div class="clearfix" style="z-index: 1000;">
+
+
+									<div class="product_quantity clearfix">
+										<span>Quantity: </span>
+										<input id="qty" type="text" pattern="[0-9]*" value="1">
+										<div class="quantity_buttons">
+											<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
+											<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
+										</div>
+									</div>
+
+
+
+
+								</div>
+
+								<div class="product_price">'.$price.'</div>
+								<div class="button_container">
+									<button value="'.$id.'" class="button cart_button">Add to Cart</button>
+									<div class="product_fav"><i class="fas fa-heart"></i></div>
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+
+';
+
+
+}
+
+
+
+
+function searchResultDisplay(){
+
+
+  $searchterm = isset($_GET['search_query'])? $_GET['searchterm']:'';
+  $search_res = searchProduct($searchterm);
+
+  $_SESSION['searchterm'] = $_GET['searchterm'];
+  if ($search_res) {
+      foreach ($search_res as $value) {
+          $id = $value['product_id'];
+          $title = $value['product_title'];
+          $price = $value['product_price'];
+          $desc = $value['product_desc'];
+
+        $img = $value['product_image'];
+
+
+
+
+  echo '
+  <div class="owl-item">
+    <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+      <div class="viewed_image"><a href="../view/product.php?product_id='.$id.'"><img src="'.$img.'" alt=""></a></div>
+      <div class="viewed_content text-center">
+        <div class="viewed_price">GH¢  '.$price.'</div>
+        <div class="viewed_name"><a href="../view/product.php?product_id='.$id.'">'.$title.'</a></div>
+      </div>
+      <ul class="item_marks">
+
+        <li class="item_mark item_new">new</li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  ';
+}
+}else {
+  echo '
+<div>
+
+<h3> No result matched your search query</h3>
+
+</div>
+
+
+  ';
+
+}
+}
+
+
+
+
+
+
+
+
+
+// #####################################################################################
+
+
+
 
 //view all product function
 function view_products($category){

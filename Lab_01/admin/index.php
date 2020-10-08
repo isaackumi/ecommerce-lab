@@ -17,25 +17,25 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Sidebar 01</title>
+  	<title>Admin | Home </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-		
+
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-		
+
 		<div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
 				<div class="p-4 pt-5">
 		  		<a href="#" class="img logo rounded-circle mb-5" style="background-image: url(images/logo.jpg);"></a>
 	        <ul>
 	          <li class="active">
-	           
+
                 <li>
                     <a href="#../index.php">Home</a>
                 </li>
@@ -52,10 +52,10 @@
                     <a href="#logout.php">Logout</a>
                 </li>
 	            </ul>
-	          
-	          
-	          
-	        
+
+
+
+
 
 	      </div>
     	</nav>
@@ -328,8 +328,8 @@
           <h2 class="mb-4"><?php if(!empty($_SESSION['admin_id'])){
                                 echo ("Welcome"." ".$_SESSION["admin_name"]);
                                 }else {
-                                echo ""; 
-                                } 
+                                echo "";
+                                }
                             ?> </h2>
         <p>This is your dashboard you can do add products, and manage products added!!!!</p>
 
@@ -476,7 +476,7 @@
                           echo "<td>$price</td>";
                           echo "<td>$desc</td>";
 
-                          echo "<td><a href='../actions/add_brand.php?delete_product_id=$uid' class= 'btn btn-outline-danger delete_brand' >Delete</a>
+                          echo "<td><a href='#../actions/add_brand.php?delete_product_id=$uid' class= 'btn btn-outline-danger delete_brand' >Delete</a>
         | <a href='update_product.php?upid=$uid' id='addBrandModal' class= 'btn btn-outline-success update_brand' >Update</a>
   </td>";
 
