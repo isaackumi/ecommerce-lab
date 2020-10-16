@@ -356,4 +356,8 @@ class product_class extends db_connection
         return $this->db_query($sql);
     }
 }
+
+// $obj = new product_class();
+// $var = $obj->view_all_products();
+// print_r($var);
 ?>

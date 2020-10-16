@@ -4,6 +4,8 @@
 //database credentials
 require('db_cred.php');
 
+// require __DIR__.'./settings/db_cred.php';
+
 
 class db_connection
 {

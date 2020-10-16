@@ -269,6 +269,7 @@ function searchProduct($stm){
 
 
 function displayFeauturedProducts(){
+
   $all_products = viewAllProducts();
 
   if ($all_products) {
@@ -314,6 +315,51 @@ function displayFeauturedProducts(){
 }
 
 
+
+function arrivalSlider(){
+$all_products = viewAllProducts();
+
+if ($all_products) {
+    foreach ($all_products as $value) {
+        $id = $value['product_id'];
+        $title = $value['product_title'];
+        $price = $value['product_price'];
+        $desc = $value['product_desc'];
+
+      $img = $value['product_image'];
+
+      echo '
+
+      <div class="arrivals_slider_item">
+        <div class="border_active"></div>
+        <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
+          <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="images/new_4.jpg" alt=""></div>
+          <div class="product_content">
+            <div class="product_price">$225</div>
+            <div class="product_name"><div><a href="product.html">Huawei MediaPad...</a></div></div>
+            <div class="product_extras">
+              <div class="product_color">
+                <input type="radio" checked name="product_color" style="background:#b19c83">
+                <input type="radio" name="product_color" style="background:#000000">
+                <input type="radio" name="product_color" style="background:#999999">
+              </div>
+              <button class="product_cart_button">Add to Cart</button>
+            </div>
+          </div>
+          <div class="product_fav"><i class="fas fa-heart"></i></div>
+          <ul class="product_marks">
+            <li class="product_mark product_discount"></li>
+            <li class="product_mark product_new">new</li>
+          </ul>
+        </div>
+      </div>
+
+      ';
+
+    }}
+
+
+}
 
 
 function displayPopularCategories(){
@@ -565,7 +611,7 @@ echo '
 
 								<div class="product_price">'.$price.'</div>
 								<div class="button_container">
-									<button value="'.$id.'" class="button cart_button">Add to Cart</button>
+									<button type="button" value="'.$id.'" onclick=" return addItemToCart(this.value,1);" class="button cart_button">Add to Cart</button>
 									<div class="product_fav"><i class="fas fa-heart"></i></div>
 								</div>
 
