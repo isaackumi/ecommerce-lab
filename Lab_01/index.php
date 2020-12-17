@@ -1,11 +1,15 @@
 <?php
 
 ob_start();
+require_once __DIR__ . '/vendor/autoload.php';
 require('./settings/core.php');
 // require_once('./controllers/productcontroller.php');
 
 require __DIR__.'/controllers/productcontroller.php';
+require __DIR__.'/controllers/Session.php';
 // include_once('./controllers/cart_controller.php');
+
+// require dirname(__DIR__).'/Lab_01/controllers/cart_controller.php';
 // require __DIR__.'/controllers/cart_controller.php';
 
 $all_cat = getAllCategories();
@@ -37,6 +41,8 @@ $all_products = viewAllProducts();
 </head>
 
 <body>
+
+
 
 
 
@@ -158,8 +164,8 @@ $all_products = viewAllProducts();
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="#">Wishlist</a></div>
-									<div class="wishlist_count">115</div>
+									<!-- <div class="wishlist_text"><a href="#">Wishlist</a></div> -->
+									<!-- <div class="wishlist_count">115</div> -->
 								</div>
 							</div>
 
@@ -168,11 +174,12 @@ $all_products = viewAllProducts();
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
 										<img src="images/cart.png" alt="">
-										<div class="cart_count"><span>10</span></div>
+										<div class="cart_count"><span><?= Session::getCartCount() ?></span></div>
 									</div>
 									<div class="cart_content">
 										<div class="cart_text"><a href="#">Cart</a></div>
-										<div class="cart_price">$85</div>
+										<div class="cart_price">GH¢<?= Session::getCartTotalAmount() ?></div>
+
 									</div>
 								</div>
 							</div>
@@ -223,7 +230,7 @@ $all_products = viewAllProducts();
 
 							<div class="main_nav_menu ml-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="#">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="./index.php">Home<i class="fas fa-chevron-down"></i></a></li>
 									<!-- <li class="hassubs">
 										<a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
 										<ul>

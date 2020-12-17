@@ -1,4 +1,8 @@
-
+<?php
+ob_start();
+session_start();
+require_once '../controllers/Session.php';
+ ?>
 
 
 
@@ -31,6 +35,8 @@
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+</body>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 
 </head>
@@ -76,10 +82,10 @@
 							</div>
 							<div class="top_bar_user">
                                 <?php
-                                if(!empty($_SESSION['user_id'])){
+                                if(!empty (Session::get('user_id'))){
 
                                    echo " <div class=\"user_icon\"><img src=\"images/user.svg\" alt=\"\"></div>";
-                                    echo"<div><a href='../Login/login.php'>Welcome  " .$_SESSION['customer_name']."</a> </div>";
+                                    echo"<div><a href='../Login/login.php'>Welcome  " .Session::get('customer_name')."</a> </div>";
 
                                     echo "<div class='btn-cta'><a href='./Login/logout.php'><span>Logout  </span></a></div>";
                                 }else {
@@ -145,8 +151,8 @@
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
 								<div class="wishlist_icon"><img src="../images/heart.png" alt=""></div>
 								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="#">Wishlist</a></div>
-									<div class="wishlist_count">115</div>
+									<!-- <div class="wishlist_text"><a href="#">Wishlist</a></div> -->
+									<!-- <div class="wishlist_count">115</div> -->
 								</div>
 							</div>
 
@@ -155,11 +161,11 @@
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
 										<img src="../images/cart.png" alt="">
-										<div class="cart_count"><span>10</span></div>
+										<div class="cart_count"><span><?= Session::get('cart_count') ?></span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="#">Cart</a></div>
-										<div class="cart_price">$85</div>
+										<div class="cart_text"><a href="cart.php">Cart</a></div>
+										<div class="cart_price">GH¢<?= Session::get('cart_total') ?></div>
 									</div>
 								</div>
 							</div>
@@ -219,7 +225,7 @@
 
 							<div class="main_nav_menu ml-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
-									<li><a href="index.html">Home<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="../index.php">Home<i class="fas fa-chevron-down"></i></a></li>
 									<li class="hassubs">
 										<a href="#">Super Deals<i class="fas fa-chevron-down"></i></a>
 										<ul>

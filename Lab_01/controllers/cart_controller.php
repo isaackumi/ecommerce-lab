@@ -301,12 +301,14 @@ function cartDisplay(){
 
         $img = $value['product_image'];
 
+        $total = $price*$qty;
+
         echo <<< _CART
         <li class="cart_item clearfix">
           <div class="cart_item_image rounded-circle"><img src=".$img" alt=""></div>
           <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
             <div class="cart_item_name cart_info_col">
-              
+
               <div class="cart_item_text">$title</div>
             </div>
 
@@ -321,13 +323,13 @@ function cartDisplay(){
             </div>
             <div class="cart_item_total cart_info_col">
               <div class="cart_item_title">Total</div>
-              <div class="cart_item_text">GH¢ 0</div>
+              <div class="cart_item_text" id="total">GH¢ $total.00</div>
             </div>
 
             <div class="cart_item_total cart_info_col">
               <button type="button" value="$id" onclick="updateCartItemQty($id)" class="cart_item_title btn-primary">Update Quantity</button>
               <button type="button" value="$id" onclick="removeCartItem($id)" class="cart_item_title btn-danger">Delete</button>
-                <button type="button" value="$id" class="cart_item_title btn-success">proceed to checkout</button>
+              
 
             </div>
           </div>

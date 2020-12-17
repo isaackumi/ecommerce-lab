@@ -1,8 +1,16 @@
 <?php
+// session_start();
 
 require_once'./includes/header.php';
 
 require_once '../controllers/cart_controller.php';
+
+// require_once '../controllers/Session.php';
+
+
+
+
+// $email =
 
  ?>
 
@@ -39,7 +47,14 @@ require_once '../controllers/cart_controller.php';
 						</div>
 
 						<div class="cart_buttons">
-							<!-- <button type="button" class="button cart_button_clear">Add to Cart</button> -->
+              <!-- <form class="" action="" id="pay" method="post">
+                <input type="email" id="email" name="" value="<?= $email ?? "customer@gmail.com" ?>">
+                <input type="text" id="amount" name="" value="<?= $amt ?? 30000?>"> -->
+
+                <a href="checkout.php" class="btn btn-lg btn-primary cart_button_checkout pull-right ">Proceed to checkout </a>
+
+              </form>
+
 							<!-- <button type="button" class="button cart_button_checkout">Add to Cart</button> -->
 						</div>
 					</div>

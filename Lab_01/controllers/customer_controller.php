@@ -1,5 +1,5 @@
 <?php
-require("../classes/customer_class.php");
+require_once("../classes/customer_class.php");
 
 
 function createCustomer($aa,$bb,$cc,$dd,$ee,$ff,$gg){
@@ -34,10 +34,17 @@ function deleteCustomer($id){
 }
 
 function selectOneCustomer($id){
-    $customer = new customer_class();
-    $cus_check = $customer->getCustomerById($id);
-    return  $cus_check = $cus_check ?: false;
+    // $customer = new customer_class();
+    // $cus_check = $customer->getCustomerById($id);
+    // return  $cus_check = $cus_check ?: fal
+
+    $login_array = array();
+    $login_object = new customer_class();
+    $login_record = $login_object->getCustomerById($id);
+    if ($login_record) {
+        $one_record = $login_object->db_fetch();
+        $login_array[] = $one_record;
+    }
+    return $login_array;
 
 }
-
-

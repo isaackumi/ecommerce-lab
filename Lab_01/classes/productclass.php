@@ -1,14 +1,47 @@
 <?php
-
+// namespace app;
 // require("../settings/db_class.php");
 
 require __DIR__.'/../settings/db_class.php';
+
 
 class product_class extends db_connection
 {
 
 
 //    ##########      BRANDS  ################################
+public function getCustomerById($id){
+    $sql = " SELECT * FROM customer WHERE customer_id = '$id'";
+
+    return $this->db_query($sql);
+}
+
+
+
+
+public function insert_order($customer_id,$random){
+  // *generate a random number using rand() php function.
+  // $random='FANK_'.rand();
+  //get todays date(use the date('Y-m-d')
+  $date=date('Y-m-d');
+  //set the order status to 'paid'
+  $status="paid";
+  $sql="INSERT into orders(`customer_id`, `invoice_no`,`order_date`,`order_status`) VALUES( '$customer_id','$random','$date','$status')";
+  return $this->db_query($sql);
+}
+
+
+public function just_ordered_id($invoice_no){
+  $sql = "SELECT order_id FROM orders WHERE invoice_no = '$invoice_no'";
+  return $this->db_query($sql);
+}
+
+function populate_order_details($order_id,$invoice_no,$ip){
+  // $oder_id = $this->just_ordered_id($invoice_no);
+  $sql = "INSERT INTO orderdetails (order_id,product_id,qty)
+  SELECT '$order_id',product_id,qty FROM cart WHERE ip_add ='$ip'";
+  return $this->db_query($sql);
+}
 
 
     function create_brand($brand){
@@ -281,7 +314,7 @@ class product_class extends db_connection
 
     /////
 
-    public function insert_order($id, $pid,$email, $number, $address,$town,$qty){
+    public function insert_order___($id, $pid,$email, $number, $address,$town,$qty){
         // *generate a random number using rand() php function.
         $random=rand();
         //get todays date(use the date('Y-m-d')

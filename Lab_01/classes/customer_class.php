@@ -1,5 +1,5 @@
 <?php
-require("../settings/db_class.php");
+require_once("../settings/db_class.php");
 
 class customer_class extends db_connection
 {
@@ -33,7 +33,7 @@ public function update_customer($a,$b,$c,$d,$e,$id){
 						`customer_country`='$c',
 						`customer_city`='$d',
 						`customer_contact`='$e'
-					
+
 					WHERE customer_id='$id'";
     //run the sql execution
     return $this->db_query($sql);
@@ -50,7 +50,7 @@ public function getCustomerById($id){
 }
 
 public function updatePassword($id,$pass){
-        $sql = " UPDATE customer 
+        $sql = " UPDATE customer
         SET `customer_pass`='$pass'
  WHERE customer_id = '$id'";
 
@@ -66,8 +66,3 @@ public function updatePassword($id,$pass){
 
 
 }
-
-
-
-
-

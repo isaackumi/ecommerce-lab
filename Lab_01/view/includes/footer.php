@@ -116,6 +116,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="../js/custom.js"></script>
 
 <script src="../js/ajaxCalls.js"></script>
-</body>
+
 
 </html>

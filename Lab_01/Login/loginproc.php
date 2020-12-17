@@ -2,11 +2,13 @@
 //for header redirection
 ob_start();
 
-//start session - needed to capture login information 
-session_start(); 
+//start session - needed to capture login information
+session_start();
 
 //connnect to the controller
 require("../controllers/logincontroller.php");
+
+require_once "../controllers/Session.php";
 
 
 if (isset($_POST['register_user'])){
@@ -47,13 +49,13 @@ if (isset($_POST['register_user'])){
 
 
 			}
-		
+
 	}
 
 
-//check if login button was clicked 
+//check if login button was clicked
 if (isset($_POST['login_user'])){
-	//grab form details 
+	//grab form details
 	$customer_email = $_POST['customer_email'];
 	$customer_pass = $_POST['customer_pass'];
 	$check_login = login_user($customer_email);
@@ -62,23 +64,27 @@ if (isset($_POST['login_user'])){
 		//email exist, continue to password
 		//get password from database
 		$hash = $check_login[0]['customer_pass'];
-		
+
 		if (password_verify($customer_pass, $hash))
 		{
 				//create session for id, role and name
 				$_SESSION["user_id"] = $check_login[0]['customer_id'];
+
 				$_SESSION["user_role"] = $check_login[0]['user_role'];
 				$_SESSION["customer_name"] = $check_login[0]['customer_name'];
+				$_SESSION["customer_name"] = $check_login[0]['customer_email'];
+
+				Session::put('auth',$check_login);
 
 				//redirection to home page
 				header('Location: ../index.php');
 
 				//to make sure the code below does not execute after redirection use exit
 				exit;
-		} else 
+		} else
 		{
 				//echo appropriate error
-			    
+
 				header('Location: login.php');
 		}
 
@@ -89,7 +95,7 @@ if (isset($_POST['login_user'])){
 }
 
 if (isset($_POST['login_admin'])){
-	//grab form details 
+	//grab form details
 	$lemail = $_POST['email'];
 	$lpass = $_POST['pass'];
 	$check_login = login_admin($lemail);
@@ -98,8 +104,8 @@ if (isset($_POST['login_admin'])){
 		//email exist, continue to password
 		//get password from database
 		$hash = $check_login[0]['admin_pass'];
-		
-		if (password_verify($lpass, $hash)) 
+
+		if (password_verify($lpass, $hash))
 		{
 				//create session for id, role and name
 				$_SESSION["user_id"] = $check_login[0]['admin_id'];
@@ -107,13 +113,13 @@ if (isset($_POST['login_admin'])){
 
 				//redirection to home page
 				header('Location: ../admin/index.php');
-				
+
 				//to make sure the code below does not execute after redirection use exit
 				exit;
-		} else 
+		} else
 		{
 				//echo appropriate error
-			    
+
 				header('Location: login.php');
 		}
 

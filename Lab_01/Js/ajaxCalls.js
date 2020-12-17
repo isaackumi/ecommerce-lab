@@ -1,4 +1,70 @@
+const pay = document.getElementById('pay');
 
+const email = document.getElementById('email').value;
+const amount = document.getElementById('amount').value;
+
+pay.addEventListener('submit',payWithPaystack,false)
+
+function payWithPaystack(e){
+
+  e.preventDefault();
+
+  // e.preventDefault(e);
+  let handler = PaystackPop.setup({
+    key: 'pk_test_ebe131dfc1b732bcaa101790b8a935f27b9ebed5',
+    email: email,
+    amount: amount+"00",
+    currency : "GHS",
+    // ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+    // metadata: {
+    //    custom_fields: [
+    //       {
+    //           display_name: "Mobile Number",
+    //           variable_name: "mobile_number",
+    //           value: "+2348012345678"
+    //       }
+    //    ]
+    // },
+    callback: function(response){
+        // alert('success. transaction ref is ' + response.reference);
+          window.location = "./verify_payment.php?ref="+response.reference+"&amount="+amount;
+    },
+    onClose: function(){
+        alert('window closed');
+
+    }
+  });
+  handler.openIframe();
+}
+
+
+
+
+// function payWithPaystack(){
+//
+//    var handler = PaystackPop.setup({
+//      key: 'pk_test_ebe131dfc1b732bcaa101790b8a935f27b9ebed5',
+//      email: 'customer@email.com',
+//      amount: 10000,
+//       // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+//      metadata: {
+//         custom_fields: [
+//            {
+//                display_name: "Isaac",
+//                variable_name: "mobile_number",
+//                value: "+2348012345678"
+//            }
+//         ]
+//      },
+//      callback: function(response){
+//          alert('success. transaction ref is ' + response.reference);
+//      },
+//      onClose: function(){
+//          alert('window closed');
+//      }
+//    });
+//    handler.openIframe();
+//  }
 
 function addItemToCart(prod_id, qty){
   // alert(prod_id)
@@ -12,6 +78,7 @@ function addItemToCart(prod_id, qty){
     url:endpoint,
     success: function(data){
       var msg = data.hasOwnProperty('message');
+      setInterval('location.reload()', 100);
       // console.log(data);
       var dt = "Item already in cart";
       if (data == dt) {
@@ -44,6 +111,7 @@ function removeCartItem(prod_id){
       var msg = data.hasOwnProperty('message');
       // console.log(data);
       var dt = "Item already in cart";
+      setInterval('location.reload()', 100);
       if (data == dt) {
         swal("Oops!", `${data}`, "error")
       }else{
@@ -71,9 +139,11 @@ function updateCartItemQty(prod_id){
         type:"GET",
         url:endpoint,
         success: function(data){
+          // document.getElementById("total").innerHTML = 'quantity cannot be negative';
           // var msg = data.hasOwnProperty('message');
           // console.log(data);
           var dt = "Item already in cart";
+          setInterval('location.reload()', 100);
           if (data == dt) {
             swal("Oops!", `${data}`, "error")
           }else{

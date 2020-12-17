@@ -1,7 +1,7 @@
 <?php
 
 
-require("../settings/db_class.php");
+require_once __DIR__."/../settings/db_class.php";
 
 // require __DIR__.'./settings/db_class.php';
 
@@ -24,8 +24,12 @@ class ShoppingCart extends db_connection
 	}
 
 	function addToCart($prod_id, $ip_adr, $qty){
-		 $sql = "INSERT INTO cart(p_id, ip_add, qty) VALUES('$prod_id','$ip_adr','$qty')";
-        return $this->db_query($sql);
+		if (!$this->validateCart($ip_adr,$prod_id)) {
+			$sql = "INSERT INTO cart(p_id, ip_add, qty) VALUES('$prod_id','$ip_adr','$qty')";
+				 return $this->db_query($sql);
+		}
+
+
 	}
 
 	function validateCart($ip_address, $prod_id){

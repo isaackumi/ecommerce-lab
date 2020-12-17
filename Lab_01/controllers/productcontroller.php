@@ -4,6 +4,69 @@
 
 require __DIR__.'/../classes/productclass.php';
 
+function selectOneCustomer($id){
+    // $customer = new customer_class();
+    // $cus_check = $customer->getCustomerById($id);
+    // return  $cus_check = $cus_check ?: fal
+
+    $login_array = array();
+    $login_object = new customer_class();
+    $login_record = $login_object->getCustomerById($id);
+    if ($login_record) {
+        $one_record = $login_object->db_fetch();
+        $login_array[] = $one_record;
+    }
+    return $login_array;
+
+}
+
+function insert_order($customer_id,$random){
+
+  $checkinsert=(new product_class())->insert_order($customer_id,$random);
+  if ($checkinsert){
+		return true;
+	}else{
+		return false;
+	}
+
+}
+
+
+
+function just_ordered_id($invoice_no){
+  // $check = (new Product())->just_ordered_id($invoice_no);
+
+  //Create an array variable to the product key value pair
+  $product_array = array();
+
+  //create an instance of the product class
+  $product_object = new product_class();
+
+  //run the view one product method
+  $product_record = $product_object->just_ordered_id($invoice_no);
+
+  //check if the method worked
+  if ($product_record) {
+
+    //fetch the result
+    $one_record = $product_object->db_fetch();
+    //assign to array
+    $product_array[] = $one_record;
+  }
+  //return array
+  return $product_array;
+}
+
+
+function populate_order_details($order_id,$invoice_no,$ip){
+  $checkinsert=(new product_class())->populate_order_details($order_id,$invoice_no,$ip);
+  if ($checkinsert){
+		return true;
+	}else{
+		return false;
+	}
+}
+
 function add_product($product_cat, $product_brand, $product_title, $product_price, $product_desc, $product_image)
 {
     //create an instance of product class
